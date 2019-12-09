@@ -1,0 +1,14 @@
+body{
+    background-color: rgba(0,55,255,0.18);
+}
+
+#header{
+    margin-bottom: 100px;
+}
+
+#content{
+    background-color:white;
+    padding: 50px;
+    border-radius:25px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}

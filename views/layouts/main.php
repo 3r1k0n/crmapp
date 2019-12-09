@@ -15,7 +15,12 @@
 </head>
 <body>
     <?php $this->beginBody() ?>
-    <?= $content ?>
+    <div id="main-container" class="container-fluid">
+    <div id="header" class="container-fluid"></div>
+        <div id="content" class="container">
+            <?= $content ?>
+        </div>
+    </div>
     <?php $this->endBody() ?>
 </body>
 </html>
