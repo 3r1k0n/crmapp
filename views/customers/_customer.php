@@ -6,6 +6,7 @@ echo \yii\widgets\DetailView::widget(
             ['attribute' => 'name'],
             ['attribute' => 'birth_date', 'value' => $model->birth_date->format('Y-m-d')],
             'notes:text',
+            ['attribute' => 'sales_status'],
             ['label' => 'Phone Number', 'attribute' => 'phones.0.number']
         ]
     ]

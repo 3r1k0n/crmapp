@@ -15,6 +15,9 @@ class Customer
     /** @var PhoneRecord[] */
     public $phones = [];
 
+    /** @var  string */
+    public $sales_status;
+
     public function __construct($name, $birth_date)
     {
         $this->name = $name;

@@ -20,8 +20,8 @@ $form = ActiveForm::begin([
 echo $form->errorSummary([$customer, $phone]);
 echo $form->field($customer, 'name');
 echo $form->field($customer, 'birth_date');
+echo $form->field($customer , 'sales_status')->dropDownList(["Warm"=>"Warm", "Cold"=>"Cold", "Closed"=>"Closed"], ['prompt'=>'']);
 echo $form->field($customer, 'notes');
-
 echo $form->field($phone, 'number');
 
 echo Html::submitButton('Submit', ['class' => 'btn btn-primary']);
