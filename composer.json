@@ -1,9 +1,10 @@
 {
-    "require": {
-        "codeception/codeception": "*",
-        "fzaninotto/faker": "*",
-        "yiisoft/yii2": "*"
-    },
+  "require": {
+      "codeception/codeception": "*",
+      "fzaninotto/faker": "*",
+      "yiisoft/yii2": "*",
+    "yidas/yii2-bootstrap": "^4.0"
+  },
   "extra": {
     "asset-installer-paths": {
       "npm-asset-library": "vendor/npm",
