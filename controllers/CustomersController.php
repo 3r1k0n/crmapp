@@ -27,17 +27,28 @@ class CustomersController extends Controller
 
     private function getRecordsByPhoneNumber($number)
     {
-        $phone_record = PhoneRecord::findOne(['number' => $number]);
-        if (!$phone_record) {
+        $phone_records = PhoneRecord::findAll(['number' => $number]);
+        if (!$phone_records) {
             return [];
         }
 
-        $customer_record = CustomerRecord::findOne($phone_record->customer_id);
-        if (!$customer_record) {
+        $customer_ids = array_column($phone_records, 'customer_id');
+        $customer_records = CustomerRecord::findAll($customer_ids);
+        if (!$customer_records) {
             return [];
         }
 
-        return [$this->makeCustomer($customer_record, $phone_record)];
+        $result = [];
+        foreach ($phone_records as $phone_record) {
+            foreach($customer_records as $customer_record) {
+                if ($customer_record->id == $phone_record->customer_id) {
+                    array_push($result, $this->makeCustomer($customer_record, $phone_record));
+                    break;
+                }
+            }
+        }
+
+        return $result;
     }
 
     private function makeCustomer(CustomerRecord $customer_record, PhoneRecord $phone_record) {
