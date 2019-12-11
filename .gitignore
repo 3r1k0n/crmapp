@@ -5,4 +5,5 @@ composer.lock
 tests/_output/*
 web/pma/
 web/assets/*
+web/uploads/*
 config/db.php
