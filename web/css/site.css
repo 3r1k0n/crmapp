@@ -19,3 +19,7 @@ body{
     border-radius: 10px;
     margin-bottom: 10px;
 }
+
+#search_results table th {
+    width: 30%;
+}
