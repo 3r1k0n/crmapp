@@ -13,6 +13,9 @@ body{
     box-shadow: 0 30px 50px rgba(0,0,0,0.2);
 }
 
-/* .error-summary{
-    background: red;
-} */
+.error-summary{
+    background: #e55b5b;
+    padding: 20px 20px 10px 20px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
