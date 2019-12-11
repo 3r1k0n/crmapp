@@ -18,6 +18,9 @@ class Customer
     /** @var  string */
     public $sales_status;
 
+    /** @var  string */
+    public $attachment_path;
+
     public function __construct($name, $birth_date)
     {
         $this->name = $name;

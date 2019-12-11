@@ -7,6 +7,7 @@ use app\models\customer\Phone;
 use app\models\customer\PhoneRecord;
 use yii\data\ArrayDataProvider;
 use yii\web\Controller;
+use yii\web\UploadedFile;
 
 class CustomersController extends Controller
 {
@@ -39,16 +40,15 @@ class CustomersController extends Controller
         return [$this->makeCustomer($customer_record, $phone_record)];
     }
 
-    private function makeCustomer(
-        CustomerRecord $customer_record,
-        PhoneRecord $phone_record
-    ) {
+    private function makeCustomer(CustomerRecord $customer_record, PhoneRecord $phone_record) {
         $name = $customer_record->name;
         $birth_date = new \DateTime($customer_record->birth_date);
 
         $customer = new Customer($name, $birth_date);
         $customer->notes = $customer_record->notes;
         $customer->phones[] = new Phone($phone_record->number);
+        $customer->sales_status = $customer_record->sales_status;
+        $customer->attachment_path = $customer_record->attachment_path;
 
         return $customer;
     }
@@ -69,7 +69,11 @@ class CustomersController extends Controller
         $phone = new PhoneRecord();
 
         if ($this->load($customer, $phone, $_POST)) {
+            $customer->attachment = UploadedFile::getInstance($customer, 'attachment');
+            $customer->upload();
+
             $this->store($this->makeCustomer($customer, $phone));
+
             return $this->redirect('/customers');
         }
 
@@ -90,6 +94,8 @@ class CustomersController extends Controller
         $customer_record->name = $customer->name;
         $customer_record->birth_date = $customer->birth_date->format('Y-m-d');
         $customer_record->notes = $customer->notes;
+        $customer_record->sales_status = $customer->sales_status;
+        $customer_record->attachment_path = $customer->attachment_path;
 
         $customer_record->save();
 
