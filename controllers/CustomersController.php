@@ -20,9 +20,28 @@ class CustomersController extends Controller
     private function findRecordsByQuery()
     {
         $number = \Yii::$app->request->get('phone_number');
-        $records = $this->getRecordsByPhoneNumber($number);
+        $records = $number ? $this->getRecordsByPhoneNumber($number) : $this->getAllRecords();
         $dataProvider = $this->wrapIntoDataProvider($records);
         return $dataProvider;
+    }
+
+    private function getAllRecords(){
+        $customer_records = CustomerRecord::find()->all();
+        $phone_records = PhoneRecord::find()->all();
+
+        $result = [];
+        foreach($customer_records as $customer_record) {
+            $related_phone_record = NULL;
+            foreach ($phone_records as $phone_record) {
+                if ($customer_record->id == $phone_record->customer_id) {
+                    $related_phone_record = $phone_record;
+                    break;
+                }
+            }
+            array_push($result, $this->makeCustomer($customer_record, $related_phone_record));
+        }
+
+        return $result;
     }
 
     private function getRecordsByPhoneNumber($number)
@@ -51,13 +70,17 @@ class CustomersController extends Controller
         return $result;
     }
 
-    private function makeCustomer(CustomerRecord $customer_record, PhoneRecord $phone_record) {
+    private function makeCustomer(CustomerRecord $customer_record, ?PhoneRecord $phone_record) {
         $name = $customer_record->name;
         $birth_date = new \DateTime($customer_record->birth_date);
 
         $customer = new Customer($name, $birth_date);
         $customer->notes = $customer_record->notes;
-        $customer->phones[] = new Phone($phone_record->number);
+        if($phone_record){
+            $customer->phones[] = new Phone($phone_record->number);
+        }else{
+            $customer->phones[] = [];
+        }
         $customer->sales_status = $customer_record->sales_status;
         $customer->attachment_path = $customer_record->attachment_path;
 
