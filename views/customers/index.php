@@ -5,7 +5,7 @@ echo \yii\widgets\ListView::widget(
             'class' => 'list-view',
             'id' => 'search_results'
         ],
-        'itemView' => '_customer',
+        'itemView' => 'partials\_customer',
         'dataProvider' => $records
     ]
 );

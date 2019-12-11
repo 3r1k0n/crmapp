@@ -3,6 +3,9 @@ namespace app\models\customer;
 
 class Customer
 {
+    /** @var  int */
+    public $id;
+
     /** @var  string */
     public $name;
 

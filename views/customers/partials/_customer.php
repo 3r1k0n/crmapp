@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 
+echo $this->render( '_action-buttons', $params = ['target_id'=> $model->id] );
 echo \yii\widgets\DetailView::widget(
     [
         'model' => $model,

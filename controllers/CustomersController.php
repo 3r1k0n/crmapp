@@ -75,6 +75,7 @@ class CustomersController extends Controller
         $birth_date = new \DateTime($customer_record->birth_date);
 
         $customer = new Customer($name, $birth_date);
+        $customer->id = $customer_record->id;
         $customer->notes = $customer_record->notes;
         if($phone_record){
             $customer->phones[] = new Phone($phone_record->number);
@@ -144,5 +145,15 @@ class CustomersController extends Controller
     public function actionQuery()
     {
         return $this->render('query');
+    }
+
+    public function actionDelete($id)
+    {
+        return $id;
+    }
+
+    public function actionUpdate($id)
+    {
+        return $id;
     }
 }
