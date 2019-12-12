@@ -149,7 +149,14 @@ class CustomersController extends Controller
 
     public function actionDelete($id)
     {
-        return $id;
+        $related_phone_record = PhoneRecord::findOne(['customer_id' => $id]);
+        if($related_phone_record){
+            $related_phone_record->delete();
+        }
+
+        CustomerRecord::findOne($id)->delete();
+
+        $this->redirect(['index']);
     }
 
     public function actionUpdate($id)
