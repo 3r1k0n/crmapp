@@ -13,7 +13,7 @@ echo \yii\widgets\DetailView::widget(
                 'format'=>'raw',
                 'value' => function($model){
                     if($model->attachment_path){
-                     return Html::a(Html::img($model->attachment_path, ['style'=>'max-width:100px;max-height:100px;', 'alt'=>$model->name]), [ $model->attachment_path ]);
+                     return Html::a(Html::img("/".$model->attachment_path, ['alt'=>$model->name, 'class'=>'thumbnail']), [ $model->attachment_path ]);
                     }
                 }
            ],
