@@ -161,6 +161,37 @@ class CustomersController extends Controller
 
     public function actionUpdate($id)
     {
+        $customer = new CustomerRecord();
+        $phone = new PhoneRecord();
+
+        
+
+        if ($this->load($customer, $phone, $_POST) && $customer->id) {
+            $customer_record = CustomerRecord::findOne($customer->id);
+            $customer_record->name = $customer->name;
+            $customer_record->birth_date = $customer->birth_date;
+            $customer_record->sales_status = $customer->sales_status;
+
+            $attached_file = UploadedFile::getInstance($customer, 'attachment');
+            if($attached_file){
+                $customer_record->attachment = $attached_file;
+                $customer_record->upload();
+            }
+            $customer_record->save(false);
+
+            $phone_record = $phone->id? PhoneRecord::findOne($phone->id) : new PhoneRecord();
+            $phone_record->customer_id = $customer->id;
+            $phone_record->number = $phone->number;
+            $phone_record->save();
+
+            $this->redirect(['index']);
+        }
+
+        $customer = CustomerRecord::findOne($id);
+        $phone = PhoneRecord::findOne(['customer_id' => $id]) ?? new PhoneRecord();
+
+        return $this->render('add', compact('customer', 'phone'));
+
         return $id;
     }
 }
