@@ -26,7 +26,7 @@ echo $form->field($customer, 'notes');
 echo $form->field($phone, 'id', ['labelOptions'=>['class' => 'hidden']])->hiddenInput();
 echo $form->field($phone, 'number');
 ?>
-<div>
+<div class="form-group">
     <div class='inline-block'>
         <?php
             if($customer->attachment_path){
