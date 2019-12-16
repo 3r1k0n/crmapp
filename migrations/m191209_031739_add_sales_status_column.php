@@ -12,7 +12,7 @@ class m191209_031739_add_sales_status_column extends Migration
      */
     public function safeUp()
     {
-        $this->addColumn("customer","sales_status","ENUM('Closed', 'Warm', 'Cold')");
+        $this->addColumn("customer","sales_status","string");
     }
 
     /**
